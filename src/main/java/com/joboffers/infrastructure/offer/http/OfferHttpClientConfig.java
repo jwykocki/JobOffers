@@ -4,18 +4,29 @@ import com.joboffers.domain.offer.OfferFetchable;
 import java.time.Duration;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-@Configuration
-public class OfferHttpClientConfig {
 
+@Configuration
+@AllArgsConstructor
+public class OfferHttpClientConfig {
 
     private final OfferHttpClientConfigurationProperties properties;
 
+    @Bean
+    public OfferHttpClientConfigurationProperties offerHttpClientConfigurationProperties() {
+        return OfferHttpClientConfigurationProperties.builder()
+                .connectionTimeout(properties.connectionTimeout())
+                .readTimeout(properties.readTimeout())
+                .port(properties.port())
+                .uri(properties.uri())
+                .build();
+    }
 
     @Bean
     public RestTemplateResponseErrorHandler restTemplateResponseErrorHandler() {
@@ -35,8 +46,10 @@ public class OfferHttpClientConfig {
 
     @Bean
     public OfferFetchable remoteOfferClient(RestTemplate restTemplate,
-                                            properties.uri(),
+                                            @Value("${offer.http.client.config.uri}") String uri,
                                             @Value("${offer.http.client.config.port}") int port) {
         return new OfferHttpClient(restTemplate, uri, port);
     }
+
+
 }
