@@ -16,8 +16,8 @@ import org.springframework.http.HttpStatus;
 
 public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseIntegrationTest implements SampleJobOfferResponse {
 
-//    @Autowired
-//    OfferFetchable offerHttpClient;
+    @Autowired
+    OfferFetchable remoteOfferHttpClient;
 
 
     @Test

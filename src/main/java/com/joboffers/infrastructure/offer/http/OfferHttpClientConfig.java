@@ -2,6 +2,8 @@ package com.joboffers.infrastructure.offer.http;
 
 import com.joboffers.domain.offer.OfferFetchable;
 import java.time.Duration;
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,10 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class OfferHttpClientConfig {
+
+
+    private final OfferHttpClientConfigurationProperties properties;
+
 
     @Bean
     public RestTemplateResponseErrorHandler restTemplateResponseErrorHandler() {
@@ -29,8 +35,8 @@ public class OfferHttpClientConfig {
 
     @Bean
     public OfferFetchable remoteOfferClient(RestTemplate restTemplate,
-                                            @Value("${offer.http.client.config.uri:http://example.com}") String uri,
-                                            @Value("${offer.http.client.config.port:5057}") int port) {
+                                            properties.uri(),
+                                            @Value("${offer.http.client.config.port}") int port) {
         return new OfferHttpClient(restTemplate, uri, port);
     }
 }
