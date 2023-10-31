@@ -13,6 +13,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
+import org.springframework.dao.DuplicateKeyException;
 
 public class InMemoryOfferRepository implements OfferRepository {
 
@@ -53,7 +54,7 @@ public class InMemoryOfferRepository implements OfferRepository {
     @Override
     public <S extends Offer> S save(S entity) {
         if (database.values().stream().anyMatch(offer -> offer.offerUrl().equals(entity.offerUrl()))) {
-            throw new OfferDuplicateException(entity.offerUrl());
+            throw new DuplicateKeyException(String.format("Offer with offerUrl [%s] already exists", entity.offerUrl()));
         }
         UUID id = UUID.randomUUID();
         Offer offer = new Offer(
