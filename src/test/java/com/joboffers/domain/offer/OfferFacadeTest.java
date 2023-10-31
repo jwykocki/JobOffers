@@ -8,6 +8,7 @@ import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
+import org.springframework.dao.DuplicateKeyException;
 
 
 public class OfferFacadeTest {
@@ -130,7 +131,7 @@ public class OfferFacadeTest {
 
         // then
         AssertionsForClassTypes.assertThat(thrown)
-                .isInstanceOf(OfferDuplicateException.class)
+                .isInstanceOf(DuplicateKeyException.class)
                 .hasMessage("Offer with offerUrl [url5] already exists");
     }
 }
