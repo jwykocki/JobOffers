@@ -28,12 +28,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+//TODO
+//dopisac error handler dla 500
+
 @Log4j2
 public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseIntegrationTest implements SampleJobOfferResponse {
 
 //    @Container
 //    public static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
-
+//
 //    @DynamicPropertySource
 //    public static void propertyOverride(DynamicPropertyRegistry registry) {
 //        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
