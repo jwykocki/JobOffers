@@ -20,11 +20,11 @@ public class OfferUrlDuplicateErrorIntegrationTest extends BaseIntegrationTest {
 
 //    @Container
 //    public static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
-
-    @DynamicPropertySource
-    public static void propertyOverride(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
-    }
+//
+//    @DynamicPropertySource
+//    public static void propertyOverride(DynamicPropertyRegistry registry) {
+//        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+//    }
 
     @Test
     public void should_return_409_conflict_when_added_second_offer_with_same_offer_url() throws Exception {
