@@ -39,7 +39,6 @@ public class OfferHttpClient implements OfferFetchable {
                 log.error("Response Body was null");
                 throw new ResponseStatusException(HttpStatus.NO_CONTENT);
             }
-            log.info("Success Response Body Returned: " + body);
             return body;
         } catch (ResourceAccessException e) {
             log.error("Error while fetching offers using http client: " + e.getMessage());
