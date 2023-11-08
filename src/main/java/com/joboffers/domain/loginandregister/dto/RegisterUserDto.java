@@ -1,4 +1,7 @@
 package com.joboffers.domain.loginandregister.dto;
 
-public record RegisterUserDto(String username, String password) {
+// TODO walidacja
+public record RegisterUserDto(
+        String username,
+        String password) {
 }
