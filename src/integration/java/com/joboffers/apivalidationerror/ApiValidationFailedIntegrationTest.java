@@ -16,7 +16,7 @@ import org.testcontainers.utility.DockerImageName;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-// TODO should return 400 kiedy uzytkownik poda puste haslo, nazwe uzytkownika itp
+
 public class ApiValidationFailedIntegrationTest extends BaseIntegrationTest {
 
     @Container
@@ -39,7 +39,7 @@ public class ApiValidationFailedIntegrationTest extends BaseIntegrationTest {
                         "salary": ""
                         }
                         """)
-                .contentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
         );
         // then
         MvcResult mvcResult = perform.andExpect(status().isBadRequest()).andReturn();
