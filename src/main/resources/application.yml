@@ -2,7 +2,7 @@ spring:
   cache:
     type: redis
     redis:
-      time-to-live: PT10S
+      time-to-live: PT60M
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:63792}
