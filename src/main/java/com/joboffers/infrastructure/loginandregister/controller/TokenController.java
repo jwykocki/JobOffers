@@ -4,6 +4,7 @@ import com.joboffers.infrastructure.loginandregister.controller.dto.JwtResponseD
 import com.joboffers.infrastructure.loginandregister.controller.dto.TokenRequestDto;
 import com.joboffers.infrastructure.security.jwt.JwtAuthenticatorFacade;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,12 +14,14 @@ import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
+@Log4j2
 public class TokenController {
 
     private final JwtAuthenticatorFacade jwtAuthenticationFacade;
 
     @PostMapping("/token")
     public ResponseEntity<JwtResponseDto> authenticateAndGenerateToken(@Valid @RequestBody TokenRequestDto loginRequest) {
+        log.info("Received request to authenticate user: " + loginRequest.username());
         final JwtResponseDto jwtResponse = jwtAuthenticationFacade.authenticateAndGenerateToken(loginRequest);
         return ResponseEntity.ok(jwtResponse);
     }

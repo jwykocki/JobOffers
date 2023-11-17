@@ -2,8 +2,10 @@ package com.joboffers.infrastructure.loginandregister.controller.error;
 
 
 import com.joboffers.infrastructure.apivalidation.ApiValidationErrorDto;
+import com.joboffers.infrastructure.offer.controller.error.OfferPostErrorResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,5 +38,14 @@ public class RegisterControllerErrorHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
 
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateKeyException.class)
+    @ResponseBody
+    public RegisterErrorResponse userDuplicate(DuplicateKeyException duplicateKeyException) {
+        final String message = "User already exists";
+        log.error(message);
+        return new RegisterErrorResponse(Collections.singletonList(message), HttpStatus.CONFLICT);
     }
 }
