@@ -36,8 +36,7 @@ Testing:<br>
 
 ### Architecture
 
-![joboffers.PNG](architecture%2Fjoboffers.PNG)
-More specific diagram will be added soon.
+![diagram.PNG](architecture%2Fdiagram.PNG)
 
 ### Endpoints
 
@@ -52,6 +51,5 @@ Application provides five endpoints:
 |   /offers    |  POST  |       PATH VARIABLE (token)       |           JSON (offer)           |  creates new offer  |
 
 ### In progress
-* More specific architecture diagram
 * Frontend in React
 * Deployment on AWS
