@@ -16,7 +16,7 @@ Code coverage with unit tests
 Integration tests  
 Scheduled fetching offers from external server  
 Controllers tested via mockMvc  
-Token authentication
+Token authentication  
 Redis cache
 
 ### Technologies
@@ -36,6 +36,8 @@ Testing:<br>
 
 ### Architecture
 
+
+    
 ![diagram.png](https://github.com/jwykocki/JobOffers/blob/master/architecture/diagram.png?raw=true)
 
 ### Endpoints
