@@ -36,11 +36,11 @@ Testing:<br>
 
 ### Architecture
 
-![diagram.PNG](architecture%2Fdiagram.PNG)
+![diagram.png](https://github.com/jwykocki/JobOffers/blob/master/architecture/diagram.png?raw=true)
 
 ### Endpoints
 
-Application provides five endpoints:  
+Application provides the following endpoints:  
 
 |   ENDPOINT   | METHOD |              REQUEST              |             RESPONSE             |      FUNCTION       |
 |:------------:|:------:|:---------------------------------:|:--------------------------------:|:-------------------:|
