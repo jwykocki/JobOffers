@@ -26,7 +26,6 @@ public class RegisterControllerErrorHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public RegisterErrorResponse handleValidationException(MethodArgumentNotValidException exception) {
-        log.warn("TWORZE REGISTERERROR RESPONSE");
         final List<String> errors = getErrorsFromException(exception);
         return new RegisterErrorResponse(errors, HttpStatus.BAD_REQUEST);
     }
@@ -40,12 +39,7 @@ public class RegisterControllerErrorHandler {
 
     }
 
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(DuplicateKeyException.class)
-    @ResponseBody
-    public RegisterErrorResponse userDuplicate(DuplicateKeyException duplicateKeyException) {
-        final String message = "User already exists";
-        log.error(message);
-        return new RegisterErrorResponse(Collections.singletonList(message), HttpStatus.CONFLICT);
-    }
+
+
+
 }

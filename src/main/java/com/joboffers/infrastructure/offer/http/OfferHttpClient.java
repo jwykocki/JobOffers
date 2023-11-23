@@ -31,6 +31,7 @@ public class OfferHttpClient implements OfferFetchable {
         try {
             String urlForService = getUrlForService("/offers");
             final String url = UriComponentsBuilder.fromHttpUrl(urlForService).toUriString();
+            log.info("url  =  " + url);
             ResponseEntity<List<JobOfferResponse>> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity,
                     new ParameterizedTypeReference<>() {
                     });
