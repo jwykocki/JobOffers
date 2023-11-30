@@ -15,6 +15,7 @@ public class TokenControllerErrorHandler {
     private static final String BAD_CREDENTIALS = "Bad Credentials";
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
+
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseBody
     public TokenErrorResponse handleBadCredentials() {
