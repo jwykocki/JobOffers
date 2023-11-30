@@ -14,11 +14,12 @@ public class TokenControllerErrorHandler {
 
     private static final String BAD_CREDENTIALS = "Bad Credentials";
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseBody
     public TokenErrorResponse handleBadCredentials() {
-        return new TokenErrorResponse(BAD_CREDENTIALS, HttpStatus.NOT_FOUND);
+        return new TokenErrorResponse(BAD_CREDENTIALS, HttpStatus.UNAUTHORIZED);
     }
 
 
