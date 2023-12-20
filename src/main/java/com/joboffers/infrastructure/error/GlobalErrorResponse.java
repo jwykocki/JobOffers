@@ -7,6 +7,6 @@ import java.util.List;
 public record GlobalErrorResponse(
 
     List<String> messages,
-        HttpStatus httpStatus
-        ){
-}
+    HttpStatus httpStatus
+
+){ }
