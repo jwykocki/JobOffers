@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Collections;
+import java.util.Objects;
 
 @Log4j2
 @ControllerAdvice
@@ -22,14 +23,12 @@ public class GlobalDuplicateKeyExceptionHandler {
     @ResponseBody
     public GlobalErrorResponse globalDuplicate(DuplicateKeyException duplicateKeyException) {
         log.error("Duplicate key exception");
-        if (duplicateKeyException.getMessage().contains("username")) {
-            log.error("Duplicate username exception");
+        if (Objects.requireNonNull(duplicateKeyException.getMessage()).contains("username")) {
             return userDuplicate(duplicateKeyException);
         }
         else if (duplicateKeyException.getMessage().contains("url")){
             return offerDuplicate(duplicateKeyException);
         }
-
         else
             return new GlobalErrorResponse(Collections.singletonList(duplicateKeyException.getMessage()), HttpStatus.CONFLICT);
     }
@@ -37,7 +36,6 @@ public class GlobalDuplicateKeyExceptionHandler {
 
     @ResponseBody
     public GlobalErrorResponse userDuplicate(DuplicateKeyException duplicateUserException) {
-        log.error("Duplicate username exception");
         final String message = "User already exists";
         log.error(message);
         return new GlobalErrorResponse(Collections.singletonList(message), HttpStatus.CONFLICT);
