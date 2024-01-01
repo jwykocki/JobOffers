@@ -3,7 +3,12 @@
 
 ### Description
 JobOffers is a Spring Boot web application that allows you to collect job offers from various sources for Junior Java Developers (websites, other web applications).
-The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. For better presentation, application will be deployed on AWS server and simple Frontend will be made.  
+The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. For a better presentation simple frontend will be made.  
+
+Application is deployed on AWS EC2 instance. Available at:  
+http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000  
+You can also use swagger to test endpoints:  
+http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000/swagger-ui/index.html#
 > **Author:** Jakub Wykocki  
 > **Linkedin:** https://www.linkedin.com/in/jakub-wykocki/   
 
@@ -17,7 +22,7 @@ Integration tests
 Scheduled fetching offers from external server  
 Controllers tested via mockMvc  
 Token authentication  
-Redis cache
+Redis cache (in progress)
 
 ### Technologies
 
@@ -54,4 +59,4 @@ Application provides the following endpoints:
 
 ### In progress
 * Frontend in React
-* Deployment on AWS
+* Small fixes in Redis cache mechanism
