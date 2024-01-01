@@ -29,6 +29,7 @@ services:
     ports:
       - "63792:6379"
     restart: always
+    container_name: redis
 
   redis-commander:
     image: rediscommander/redis-commander:latest
