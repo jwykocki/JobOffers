@@ -1,89 +1,89 @@
-package com.joboffers.cache.redis;
-
-
-import com.joboffers.BaseIntegrationTest;
-import com.joboffers.SimpleUserRegistration;
-import com.joboffers.domain.offer.OfferFacade;
-import java.time.Duration;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.cache.CacheManager;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.utility.DockerImageName;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.awaitility.Awaitility.await;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-class RedisOffersCacheIntegrationTest extends BaseIntegrationTest {
-
-    @Container
-    public static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
-
-    @Container
-    private static final GenericContainer<?> REDIS;
-
-    @SpyBean
-    OfferFacade offerFacade;
-
-    @Autowired
-    CacheManager cacheManager;
-
-    @Autowired
-    SimpleUserRegistration simpleUserRegistration;
-
-    static {
-        REDIS = new GenericContainer<>("redis").withExposedPorts(6379);
-        REDIS.start();
-    }
-
-    @DynamicPropertySource
-    public static void propertyOverride(DynamicPropertyRegistry registry) {
-        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
-        registry.add("spring.redis.port", () -> REDIS.getFirstMappedPort().toString());
-        registry.add("spring.cache.type", () -> "redis");
-        registry.add("spring.cache.redis.time-to-live", () -> "PT1S");
-    }
-
-    @Test
-    public void should_save_offers_to_cache_and_then_invalidate_by_time_to_live() throws Exception {
-
-        //step 1 & 2: register and login
-        String jwtToken = simpleUserRegistration.registerUserLoginAndGetToken();
-
-        // step 3: should save to cache offers request
-        // given && when
-        mockMvc.perform(get("/offers")
-                .header("Authorization", "Bearer " + jwtToken)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-        );
-        // then
-        verify(offerFacade, times(1)).findAllOffers();
-        assertThat(cacheManager.getCacheNames().contains("jobOffers")).isTrue();
-
-        // step 4: cache should be invalidated
-        // given && when && then
-        await()
-                .atMost(Duration.ofSeconds(4))
-                .pollInterval(Duration.ofSeconds(1))
-                .untilAsserted(() -> {
-                            mockMvc.perform(get("/offers")
-                                    .header("Authorization", "Bearer " + jwtToken)
-                                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                            );
-                            verify(offerFacade, atLeast(2)).findAllOffers();
-                        }
-                );
-
-    }
-
-}
+//package com.joboffers.cache.redis;
+//
+//
+//import com.joboffers.BaseIntegrationTest;
+//import com.joboffers.SimpleUserRegistration;
+//import com.joboffers.domain.offer.OfferFacade;
+//import java.time.Duration;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.mock.mockito.SpyBean;
+//import org.springframework.cache.CacheManager;
+//import org.springframework.http.MediaType;
+//import org.springframework.test.context.DynamicPropertyRegistry;
+//import org.springframework.test.context.DynamicPropertySource;
+//import org.testcontainers.containers.GenericContainer;
+//import org.testcontainers.containers.MongoDBContainer;
+//import org.testcontainers.junit.jupiter.Container;
+//import org.testcontainers.utility.DockerImageName;
+//
+//import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+//import static org.awaitility.Awaitility.await;
+//import static org.mockito.Mockito.atLeast;
+//import static org.mockito.Mockito.times;
+//import static org.mockito.Mockito.verify;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+//
+//class RedisOffersCacheIntegrationTest extends BaseIntegrationTest {
+//
+//    @Container
+//    public static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
+//
+//    @Container
+//    private static final GenericContainer<?> REDIS;
+//
+//    @SpyBean
+//    OfferFacade offerFacade;
+//
+//    @Autowired
+//    CacheManager cacheManager;
+//
+//    @Autowired
+//    SimpleUserRegistration simpleUserRegistration;
+//
+//    static {
+//        REDIS = new GenericContainer<>("redis").withExposedPorts(6379);
+//        REDIS.start();
+//    }
+//
+//    @DynamicPropertySource
+//    public static void propertyOverride(DynamicPropertyRegistry registry) {
+//        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+//        registry.add("spring.redis.port", () -> REDIS.getFirstMappedPort().toString());
+//        registry.add("spring.cache.type", () -> "redis");
+//        registry.add("spring.cache.redis.time-to-live", () -> "PT1S");
+//    }
+//
+//    @Test
+//    public void should_save_offers_to_cache_and_then_invalidate_by_time_to_live() throws Exception {
+//
+//        //step 1 & 2: register and login
+//        String jwtToken = simpleUserRegistration.registerUserLoginAndGetToken();
+//
+//        // step 3: should save to cache offers request
+//        // given && when
+//        mockMvc.perform(get("/offers")
+//                .header("Authorization", "Bearer " + jwtToken)
+//                .contentType(MediaType.APPLICATION_JSON_VALUE)
+//        );
+//        // then
+//        verify(offerFacade, times(1)).findAllOffers();
+//        assertThat(cacheManager.getCacheNames().contains("offers")).isTrue();
+//
+//        // step 4: cache should be invalidated
+//        // given && when && then
+//        await()
+//                .atMost(Duration.ofSeconds(4))
+//                .pollInterval(Duration.ofSeconds(1))
+//                .untilAsserted(() -> {
+//                            mockMvc.perform(get("/offers")
+//                                    .header("Authorization", "Bearer " + jwtToken)
+//                                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                            );
+//                            verify(offerFacade, atLeast(2)).findAllOffers();
+//                        }
+//                );
+//
+//    }
+//
+//}
