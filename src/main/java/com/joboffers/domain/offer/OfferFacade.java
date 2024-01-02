@@ -14,7 +14,7 @@ public class OfferFacade {
     private final OfferRepository offerRepository;
     private final OfferService offerService;
 
-//    @Cacheable(cacheNames = "offers")
+    @Cacheable(cacheNames = "offers")
     public List<OfferResponseDto> findAllOffers() {
         return offerRepository.findAll()
                 .stream()
