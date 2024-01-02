@@ -22,7 +22,7 @@ Integration tests
 Scheduled fetching offers from external server  
 Controllers tested via mockMvc  
 Token authentication  
-Redis cache (in progress)
+Redis cache
 
 ### Technologies
 
@@ -59,4 +59,3 @@ Application provides the following endpoints:
 
 ### In progress
 * Frontend in React
-* Small fixes in Redis cache mechanism
