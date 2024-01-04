@@ -20,9 +20,9 @@ Integration tests
 Scheduled fetching offers from external server  
 Controllers tested via mockMvc  
 Token authentication  
-Redis cache
-Simple frontend in React
-Application deployed on AWS Linux EC2 server
+Redis cache  
+Simple frontend in React  
+Application deployed on AWS Linux EC2 server  
 
 ### Technologies
 
