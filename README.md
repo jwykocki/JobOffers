@@ -3,12 +3,10 @@
 
 ### Description
 JobOffers is a Spring Boot web application that allows you to collect job offers from various sources for Junior Java Developers (websites, other web applications).
-The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. For a better presentation simple frontend will be made.  
+The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. For a better presentation simple frontend in React is made. Everything is deployed on AWS and available at:  
 
-Application is deployed on AWS EC2 instance. Available at:  
-http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000  
-You can also use swagger to test endpoints:  
-http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000/swagger-ui/index.html#
+http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com
+
 > **Author:** Jakub Wykocki  
 > **Linkedin:** https://www.linkedin.com/in/jakub-wykocki/   
 
@@ -23,6 +21,8 @@ Scheduled fetching offers from external server
 Controllers tested via mockMvc  
 Token authentication  
 Redis cache
+Simple frontend in React
+Application deployed on AWS Linux EC2 server
 
 ### Technologies
 
@@ -57,5 +57,29 @@ Application provides the following endpoints:
 | /offers/{id} |  GET   |       PATH VARIABLE (token)       |           JSON (offer)           | finding offer by id |
 |   /offers    |  POST  |       PATH VARIABLE (token)       |           JSON (offer)           |  creates new offer  |
 
-### In progress
-* Frontend in React
+### How to use  
+
+**Using frontend:**
+
+Go to: http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com  
+Before using the application, you must login. If you do not have an account, register a new one. When you are logged in, you can get job offers, get one offer by ID or create and save a new job offer.  
+
+**Using endpoints**
+
+To test app you can use swagger:
+http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000/swagger-ui/index.html#  
+or send requests manually (e.g. Postman) on address:
+http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000  
+by adding proper /endpoint (/register, /token, /offers)
+
+
+### Contact
+
+**Author:** Jakub Wykocki  
+**Linkedin:** https://www.linkedin.com/in/jakub-wykocki/   
+
+If you like this project, please hit the star button, thank you!
+
+
+
+
