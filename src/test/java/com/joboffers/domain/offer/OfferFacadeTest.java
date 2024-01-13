@@ -134,4 +134,19 @@ public class OfferFacadeTest {
                 .isInstanceOf(DuplicateKeyException.class)
                 .hasMessage("Offer with offerUrl [url5] already exists");
     }
+
+    @Test
+    public void should_delete_all_offers_from_database() {
+        // given
+        OfferFacade offerFacade = new OfferFacadeTestConfiguration().offerFacadeForTests();
+        assertThat(offerFacade.findAllOffers()).isEmpty();
+        offerFacade.saveOffer(new OfferRequestDto("name", "title", "salary", "url1"));
+        assertThat(offerFacade.findAllOffers()).hasSize(1);
+
+        // when
+        offerFacade.deleteOffersFromDatabase();
+
+        // then
+        assertThat(offerFacade.findAllOffers()).isEmpty();
+    }
 }

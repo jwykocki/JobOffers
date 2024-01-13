@@ -19,6 +19,10 @@ class OfferService {
         return offerRepository.saveAll(offers);
     }
 
+    void deleteOffersFromDatabase(){
+        offerRepository.deleteAll();
+    }
+
     private List<Offer> filterNotExistingOffers(List<Offer> jobOffers) {
         return jobOffers.stream()
                 .filter(offerDto -> !offerDto.offerUrl().isEmpty())

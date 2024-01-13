@@ -130,7 +130,7 @@ public class InMemoryOfferRepository implements OfferRepository {
 
     @Override
     public void deleteAll() {
-
+        database.clear();
     }
 
     @Override

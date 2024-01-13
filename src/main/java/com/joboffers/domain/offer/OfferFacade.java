@@ -22,6 +22,10 @@ public class OfferFacade {
                 .collect(Collectors.toList());
     }
 
+    public void deleteOffersFromDatabase() {
+        offerService.deleteOffersFromDatabase();
+    }
+
     public List<OfferResponseDto> fetchAllOffersAndSaveAllIfNotExists() {
         return offerService.fetchAllOffersAndSaveAllIfNotExists()
                 .stream()
