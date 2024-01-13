@@ -3,7 +3,7 @@
 
 ### Description
 JobOffers is a Spring Boot web application that allows you to collect job offers from various sources for Junior Java Developers (websites, other web applications).
-The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. For a better presentation simple frontend in React is made. Everything is deployed on AWS and available at:  
+The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. In order to connect to the real-time job offer fetcher, saved offers are removed at each scheduler interval. For a better presentation simple frontend in React is made. Everything is deployed on AWS and available at:  
 
 http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com
 
@@ -72,6 +72,8 @@ or send requests manually (e.g. Postman) on address:
 http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000  
 by adding proper /endpoint (/register, /token, /offers)
 
+### In progress  
+- connection with real-time job offer web-scrapper (my small project in Python)
 
 ### Contact
 
