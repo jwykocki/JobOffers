@@ -19,10 +19,13 @@ public class HttpOffersScheduler {
     private static final String STARTED_OFFERS_FETCHING_MESSAGE = "Started offers fetching {}";
     private static final String STOPPED_OFFERS_FETCHING_MESSAGE = "Stopped offers fetching {}";
     private static final String ADDED_NEW_OFFERS_MESSAGE = "Added new {} offers";
+    private static final String DELETED_OFFERS_FROM_DATABASE_MESSAGE = "Deleted offers from database {}";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(fixedDelayString = "${http.offers.scheduler.request.delay}")
-    public List<OfferResponseDto> fetchAllOffersAndSaveAllIfNotExists(){
+    public List<OfferResponseDto> deleteOldAndfetchNewOffers(){
+        log.info(DELETED_OFFERS_FROM_DATABASE_MESSAGE, dateFormat.format(new Date()));
+        offerFacade.deleteOffersFromDatabase();
         log.info(STARTED_OFFERS_FETCHING_MESSAGE, dateFormat.format(new Date()));
         final List<OfferResponseDto> addedOffers = offerFacade.fetchAllOffersAndSaveAllIfNotExists();
         log.info(ADDED_NEW_OFFERS_MESSAGE, addedOffers.size());

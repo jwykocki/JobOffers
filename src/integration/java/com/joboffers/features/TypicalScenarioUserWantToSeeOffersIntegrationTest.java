@@ -65,7 +65,7 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
 
         //step 2: scheduler ran 1st time and made GET to external server and system added 0 offers to database
         // given && when
-        List<OfferResponseDto> newZeroOffers = httpOffersScheduler.fetchAllOffersAndSaveAllIfNotExists();
+        List<OfferResponseDto> newZeroOffers = httpOffersScheduler.deleteOldAndfetchNewOffers();
         // then
         assertThat(newZeroOffers).isEmpty();
 
@@ -171,7 +171,7 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
 
         //step 9: scheduler ran 2nd time and made GET to external server and system added 2 new offers with ids: 1000 and 2000 to database
         // given && when
-        List<OfferResponseDto> newTwoOffers = httpOffersScheduler.fetchAllOffersAndSaveAllIfNotExists();
+        List<OfferResponseDto> newTwoOffers = httpOffersScheduler.deleteOldAndfetchNewOffers();
         // then
         assertThat(newTwoOffers).hasSize(2);
 
@@ -227,7 +227,7 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         performGetOffersExampleExistingId.andExpect(status().isOk());
 
 
-        //step 13: there are 2 new offers in external HTTP server
+        //step 13: there are 4 offers in external HTTP server
         // given && when && then
         wireMockServer.stubFor(WireMock.get("/offers")
                 .willReturn(WireMock.aResponse()
@@ -236,11 +236,11 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
                         .withBody(bodyWithFourOffersJson())));
 
 
-        //step 14: scheduler ran 3rd time and made GET to external server and system added 2 new offers with ids: 3000 and 4000 to database
+        //step 14: scheduler ran 3rd time and made GET to external server and system added 4 new offers with ids: 3000 and 4000 to database
         // given && when
-        List<OfferResponseDto> newOffers = httpOffersScheduler.fetchAllOffersAndSaveAllIfNotExists();
+        List<OfferResponseDto> newOffers = httpOffersScheduler.deleteOldAndfetchNewOffers();
         // then
-        assertThat(newOffers).hasSize(2);
+        assertThat(newOffers).hasSize(4);
 
 
         //step 15: user made GET /offers with header “Authorization: Bearer AAAA.BBBB.CCC” and system returned OK(200) with 4 offers with ids: 1000,2000, 3000 and 4000
@@ -255,13 +255,15 @@ public class TypicalScenarioUserWantToSeeOffersIntegrationTest extends BaseInteg
         List <OfferResponseDto> fourOffers = objectMapper.readValue(jsonWithFourOffers, new TypeReference<>(){
         });
         assertThat(fourOffers).hasSize(4);
-        OfferResponseDto expectedThirdOffer = newOffers.get(0);
-        OfferResponseDto expectedFourthOffer = newOffers.get(1);
+        OfferResponseDto expectedFirstOfferFrom4 = newOffers.get(0);
+        OfferResponseDto expectedSecondOfferFrom4 = newOffers.get(1);
+        OfferResponseDto expectedThirdOfferFrom4 = newOffers.get(2);
+        OfferResponseDto expectedFourthOfferFrom4 = newOffers.get(3);
         assertThat(fourOffers).containsExactlyInAnyOrder(
-                new OfferResponseDto(expectedFirstOffer.id(), expectedFirstOffer.companyName(), expectedFirstOffer.position(), expectedFirstOffer.salary(), expectedFirstOffer.offerUrl()),
-                new OfferResponseDto(expectedSecondOffer.id(), expectedSecondOffer.companyName(), expectedSecondOffer.position(), expectedSecondOffer.salary(), expectedSecondOffer.offerUrl()),
-                new OfferResponseDto(expectedThirdOffer.id(), expectedThirdOffer.companyName(), expectedThirdOffer.position(), expectedThirdOffer.salary(), expectedThirdOffer.offerUrl()),
-                new OfferResponseDto(expectedFourthOffer.id(), expectedFourthOffer.companyName(), expectedFourthOffer.position(), expectedFourthOffer.salary(), expectedFourthOffer.offerUrl())
+                new OfferResponseDto(expectedFirstOfferFrom4.id(), expectedFirstOfferFrom4.companyName(), expectedFirstOfferFrom4.position(), expectedFirstOfferFrom4.salary(), expectedFirstOfferFrom4.offerUrl()),
+                new OfferResponseDto(expectedSecondOfferFrom4.id(), expectedSecondOfferFrom4.companyName(), expectedSecondOfferFrom4.position(), expectedSecondOfferFrom4.salary(), expectedSecondOfferFrom4.offerUrl()),
+                new OfferResponseDto(expectedThirdOfferFrom4.id(), expectedThirdOfferFrom4.companyName(), expectedThirdOfferFrom4.position(), expectedThirdOfferFrom4.salary(), expectedThirdOfferFrom4.offerUrl()),
+                new OfferResponseDto(expectedFourthOfferFrom4.id(), expectedFourthOfferFrom4.companyName(), expectedFourthOfferFrom4.position(), expectedFourthOfferFrom4.salary(), expectedFourthOfferFrom4.offerUrl())
         );
 
 
