@@ -64,11 +64,11 @@ Application provides the following endpoints:
 Go to: http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com  
 Before using the application, you must login. If you do not have an account, register a new one. When you are logged in, you can get job offers, get one offer by ID or create and save a new job offer.  
 
-**Using endpoints**
+**Using endpoints:**
 
-To test app you can use swagger:
+To test app you can use swagger:  
 http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000/swagger-ui/index.html#  
-or send requests manually (e.g. Postman) on address:
+or send requests manually (e.g. Postman) on address:  
 http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000  
 by adding proper /endpoint (/register, /token, /offers)
 
