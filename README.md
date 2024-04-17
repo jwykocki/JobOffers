@@ -3,9 +3,7 @@
 
 ### Description
 JobOffers is a Spring Boot web application that allows you to collect job offers from various sources for Junior Java Developers (websites, other web applications).
-The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. In order to connect to the real-time job offer fetcher, saved offers are removed at each scheduler interval. For a better presentation simple frontend in React is made. Everything is deployed on AWS and available at:  
-
-http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com
+The main function of the application is fetching offers form external server in scheduled time. In order to receive offers, user has to register to website. After that, using generated token, user can get offers or add a new one by themselves. In order to connect to the real-time job offer fetcher, saved offers are removed at each scheduler interval. For a better presentation simple frontend in React is made. Application was deployed on AWS EC2 server. Currently, only local usage is available.
 
 > **Author:** Jakub Wykocki  
 > **Linkedin:** https://www.linkedin.com/in/jakub-wykocki/   
@@ -59,21 +57,10 @@ Application provides the following endpoints:
 
 ### How to use  
 
-**Using frontend:**
+To use application clone this repository and run it locally. It use port 8000 on localhost by default. You can also use frontend which is my second github repository (https://github.com/jwykocki/job-offers-frontend).  
 
-Go to: http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com  
-Before using the application, you must login. If you do not have an account, register a new one. When you are logged in, you can get job offers, get one offer by ID or create and save a new job offer.  
+To test app you can use swagger or send requests manually (e.g. Postman) by adding proper /endpoint (/register, /token, /offers)
 
-**Using endpoints:**
-
-To test app you can use swagger:  
-http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000/swagger-ui/index.html#  
-or send requests manually (e.g. Postman) on address:  
-http://ec2-16-171-15-220.eu-north-1.compute.amazonaws.com:8000  
-by adding proper /endpoint (/register, /token, /offers)
-
-### In progress  
-- connection with real-time job offer web-scrapper (my small project in Python)
 
 ### Contact
 
